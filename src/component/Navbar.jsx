@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import Theme from "./Theme";
 
 const Navbar = () => {
   const navItem = (
@@ -54,7 +55,8 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
        
-        <div className="avatar">
+          <Theme />
+        <div className="avatar ms-5">
           <div className="w-12 rounded-full">
             <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg" />
           </div>
