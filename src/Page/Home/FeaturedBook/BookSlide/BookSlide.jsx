@@ -35,7 +35,7 @@ const BookSlide = () => {
         setSlidesPerView(2);
         setSpaceBetween(20);
       } else {
-        setSlidesPerView(1);
+        setSlidesPerView(2);
         setSpaceBetween(10);
       }
     };
@@ -58,7 +58,7 @@ const BookSlide = () => {
         freeMode={true}
         navigation={true}
         modules={[Navigation]}
-        className="mySwiper my-14 grid grid-cols-1 items-center"
+        className="mySwiper my-14 grid grid-cols-1  items-center"
       >
         {data.map((item) => {
           return (
@@ -66,7 +66,7 @@ const BookSlide = () => {
               <div className="flex flex-col border border-warning p-4   w-full h-full cursor-pointer  ">
                 <div className="w-full h-full overflow-hidden">
                   <img
-                    className="max-h-96 h-full object-cover w-full hover:scale-125 duration-200"
+                    className="max-h-64 h-full object-cover w-full hover:scale-125 duration-200"
                     src={item.image}
                     alt=""
                   />
