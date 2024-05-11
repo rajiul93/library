@@ -19,7 +19,7 @@ const Productivity = () => {
                 <div className="mt-8 lg:w-1/2 lg:px-6 lg:mt-0">
                     <p className="text-5xl font-semibold text-blue-500 ">“</p>
     
-                    <h1 className="text-2xl font-semibold   lg:text-3xl lg:w-96">
+                    <h1 className="text-2xl font-semibold text-white  lg:text-3xl lg:w-96">
                         Help us improve our productivity
                     </h1>
     
