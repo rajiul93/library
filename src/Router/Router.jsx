@@ -5,34 +5,39 @@ import ErrorPage from "../Page/ErrorPage/ErrorPage";
 import Home from "../Page/Home/Home";
 import Login from "../Page/LoginRegistration/Login/Login";
 import Registration from "../Page/LoginRegistration/Registration/Registration";
+import PrivetRout from "../ProtectiveRout/ProtectiveRout";
 import Root from "../Root/Root";
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
-    errorElement:<ErrorPage />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
-        element:<Home />
+        element: <Home />,
+        loader: () => fetch(`${import.meta.env.VITE_API_URL}/book`),
       },
       {
         path: "/all-book",
-        element:<AllBook />
+        element: (
+          <PrivetRout>
+            <AllBook />
+          </PrivetRout>
+        ),
       },
       {
         path: "/add-book",
-        element:<AddBook />
+        element: <PrivetRout><AddBook /></PrivetRout> ,
       },
       {
         path: "/login",
-        element:<Login />
+        element: <Login />,
       },
       {
         path: "/registration",
-        element:<Registration />
+        element: <Registration />,
       },
-      
     ],
   },
 ]);

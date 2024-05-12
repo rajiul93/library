@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import Rating from "react-rating";
@@ -7,18 +6,13 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 // SwiperCore.use([Pagination]);
+import { useLoaderData } from "react-router-dom";
 import { Navigation } from "swiper/modules";
 const BookSlide = () => {
-  const [data, setData] = useState([]);
+  const bookData = useLoaderData()
   const [slidesPerView, setSlidesPerView] = useState(5);
   const [spaceBetween, setSpaceBetween] = useState(30);
-  useEffect(() => {
-    const getData = async () => {
-      const { data } = await axios.get(`https://new-art.vercel.app/craft`);
-      setData(data);
-    };
-    getData();
-  }, []);
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -58,9 +52,9 @@ const BookSlide = () => {
         freeMode={true}
         navigation={true}
         modules={[Navigation]}
-        className="mySwiper my-14 grid grid-cols-1  items-center"
+        className="mySwiper mb-14 mt-5 grid grid-cols-1  items-center"
       >
-        {data.map((item) => {
+        {bookData.map((item) => {
           return (
             <SwiperSlide key={item._id}>
               <div className="flex flex-col border border-warning p-4   w-full h-full cursor-pointer  ">
@@ -71,10 +65,10 @@ const BookSlide = () => {
                     alt=""
                   />
                 </div>
-                <h1 className="font-bold text-start my-3">{item.name}</h1>
+                <h1 className="font-bold text-start my-3">{item.title}</h1>
              <div className="flex justify-between items-center">
              <Rating
-                  initialRating={4}
+                  initialRating={parseInt(item.rating)}
                   emptySymbol={
                     <div className="rating rating-xs">
                       <input

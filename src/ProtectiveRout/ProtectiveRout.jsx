@@ -9,7 +9,7 @@ const PrivetRout = ({ children }) => {
   const location = useLocation();
   const { user, loading } = useContext(AuthContext);
 
-  if (loading) return <>loading</>;
+  if (loading) return  <div className="h-96 flex justify-center items-center"><span className="loading loading-dots loading-lg"></span></div>
 
   if (user) return children;
 

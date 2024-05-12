@@ -1,4 +1,3 @@
-import axios from "axios";
 import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import { PropTypes } from "prop-types";
 import { createContext, useEffect, useState } from "react";
@@ -27,8 +26,8 @@ const loginWithEmail = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 const logOut =async()=>{
-const {data}= await axios(`${import.meta.env.VITE_API_URL}/log-out`,{withCredentials:true})
-console.log(data);
+// const {data}= await axios(`${import.meta.env.VITE_API_URL}/log-out`,{withCredentials:true})
+// console.log(data);
    return signOut(auth)
 }
   useEffect(() => {
