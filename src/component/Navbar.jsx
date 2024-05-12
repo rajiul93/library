@@ -83,11 +83,22 @@ const Navbar = () => {
               <h1 className="text-center font-bold mb-5 underline text-warning text-sm">
                 {user?.email}
               </h1>
-              <li>
+              {
+                user? "": <>
+                
+                <li>
                 <NavLink to="/login">Login</NavLink>
               </li>
               <li>
                 <NavLink to="/registration">Registration</NavLink>
+              </li>
+                </>
+              }
+              <li>
+                <NavLink to="/my-book">My-book</NavLink>
+              </li>
+              <li>
+                <NavLink to="/update">Update</NavLink>
               </li>
               <li>
                 <button onClick={sinOut} className="bg-error text-center mt-14">
