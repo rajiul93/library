@@ -1,8 +1,13 @@
 import { PropTypes } from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 const CategoryCard = ({ item }) => {
+  const navigate = useNavigate()
+  const handleNavigate =()=>{ 
+    navigate(`/category/${item.category_name}`)
+  }
   return (
-    <div className="w-full max-w-xs overflow-hidden bg-white  shadow-lg hover:shadow-2xl dark:bg-gray-800">
+    <div onClick={handleNavigate} className="w-full max-w-xs overflow-hidden bg-white  shadow-lg hover:shadow-2xl dark:bg-gray-800 cursor-pointer">
       <img
         className="object-cover w-full h-42"
         src={item?.image}

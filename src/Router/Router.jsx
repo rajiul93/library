@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import AddBook from "../Page/AddBook/AddBook";
 import AllBook from "../Page/AllBook/AllBook";
+import Category from "../Page/Category/Category";
 import Details from "../Page/Details/Details";
 import ErrorPage from "../Page/ErrorPage/ErrorPage";
 import Home from "../Page/Home/Home";
@@ -28,6 +29,7 @@ export const router = createBrowserRouter([
             <AllBook />
           </PrivetRout>
         ),
+
       },
       {
         path: "/details/:id",
@@ -36,6 +38,7 @@ export const router = createBrowserRouter([
             <Details />
           </PrivetRout>
         ),
+        loader: ({params}) => fetch(`${import.meta.env.VITE_API_URL}/book/${params.id}`),
     
       },
       {
@@ -52,6 +55,16 @@ export const router = createBrowserRouter([
         element: (
           <PrivetRout>
             <Update />
+          </PrivetRout>
+        ), 
+       
+
+      },
+      {
+        path: "/category/:category_name",
+        element: (
+          <PrivetRout>
+            <Category />
           </PrivetRout>
         ), 
        

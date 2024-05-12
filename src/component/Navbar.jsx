@@ -98,8 +98,9 @@ const Navbar = () => {
                 <NavLink to="/my-book">My-book</NavLink>
               </li>
               <li>
-                <NavLink to="/update">Update</NavLink>
+                <NavLink to="/category">Category</NavLink>
               </li>
+              
               <li>
                 <button onClick={sinOut} className="bg-error text-center mt-14">
                   Log Out
