@@ -8,6 +8,7 @@ import Home from "../Page/Home/Home";
 import Login from "../Page/LoginRegistration/Login/Login";
 import Registration from "../Page/LoginRegistration/Registration/Registration";
 import MyBook from "../Page/MyBook/MyBook";
+import MyBorrowedBookList from "../Page/MyBorrowedBookList/MyBorrowedBookList";
 import Update from "../Page/Update/Update";
 import PrivetRout from "../ProtectiveRout/ProtectiveRout";
 import Root from "../Root/Root";
@@ -55,6 +56,16 @@ export const router = createBrowserRouter([
         element: (
           <PrivetRout>
             <Update />
+          </PrivetRout>
+        ), 
+       
+
+      },
+      {
+        path: "/borrowedBookList",
+        element: (
+          <PrivetRout>
+            <MyBorrowedBookList />
           </PrivetRout>
         ), 
        

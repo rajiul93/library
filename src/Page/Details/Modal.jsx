@@ -1,4 +1,6 @@
-import { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 const Modal = ({
   isOpen,
@@ -8,15 +10,14 @@ const Modal = ({
   title,
   category,
   authorName,
+  startDate,
+  setStartDate,
+  startDate1,
+  setStartDate1,
 }) => {
-  const [input1, setInput1] = useState("");
-  const [input2, setInput2] = useState("");
+   
 
-//   const handleConfirm = () => {
-//     // Perform actions when confirm button is clicked
-//     console.log("Confirmed");
-//     onClose();
-//   };
+ 
 
   const handleCancel = () => {
     // Perform actions when cancel button is clicked
@@ -35,23 +36,18 @@ const Modal = ({
         <h2 className="text-xl font-bold mb-4">{title}e</h2>
         <h2 className="text-sm font-bold mb-4">Catrgory:{category}</h2>
         <div className="md:flex gap-4">
-          <img src={image} alt="Image" className="mb-4 w-16" />
+          <img src={image} alt="Image" className="mb-4 w-32" />
 
           <form onSubmit={handleBorrowed}>
-            <input
-              type="date"
-              value={input1}
-              onChange={(e) => setInput1(e.target.value)}
-              className="border border-gray-300 rounded-md px-3 py-2 mb-4 w-full"
-              placeholder="Input Field 1"
-            />
-            <input
-              type="date"
-              value={input2}
-              onChange={(e) => setInput2(e.target.value)}
-              className="border border-gray-300 rounded-md px-3 py-2 mb-4 w-full"
-              placeholder="Input Field 2"
-            />
+          
+           <div>
+             Today: <br />
+           <DatePicker disabled selected={startDate1} onChange={(date) => setStartDate1(date)}  className="border border-gray-300 rounded-md px-3 py-2 mb-4 w-full"/>\
+           <br />
+           Return Date: <br />
+
+            <DatePicker selected={startDate} onChange={(date) => setStartDate(date)}  className="border border-gray-300 rounded-md px-3 py-2 mb-4 w-full"/>
+           </div>
             <button className="bg-green-500 hover:bg-green-600 text-white rounded-md px-4 py-2">
               Confirm
             </button>
