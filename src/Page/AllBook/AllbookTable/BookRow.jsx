@@ -1,11 +1,30 @@
+import axios from "axios";
+import { useContext } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import Rating from "react-rating";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../Provider/AuthProvider";
 
 const BookRow = ({ book }) => {
+  const { user } = useContext(AuthContext);
+
   const { authorName, category, image, rating, quantity,title,_id } = book;
- 
+  const navigate = useNavigate()
+  const handleUpdate =async ()=>{
+    const email = user.email;
+    const { data } = await axios(
+      `${import.meta.env.VITE_API_URL}/user/${email}`
+    );
+
+    if (data.role !== "adimn") {
+      return toast.error("this button only for admin");
+    }
+    navigate(`/update/${_id}`);
+  }
   return (
     <tr>
+      <Toaster />
+
       <td className="px-6 py-4 whitespace-nowrap overflow-auto">
         <div className="flex items-center">
           <div className="flex-shrink-0 h-10 w-10">
@@ -20,11 +39,11 @@ const BookRow = ({ book }) => {
         </div>
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
-        <Link to={`/details/${_id}`}>
-        <div className="text-sm   hover:underline">
+        
+        <div onClick={handleUpdate} className="text-sm   hover:underline">
         {title}
         </div>
-        </Link>
+        
         <div className="text-sm text-gray-500">Optimization</div>
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
@@ -60,19 +79,11 @@ const BookRow = ({ book }) => {
 
       <td className="px-6 py-4 whitespace-nowrap  text-sm font-medium">
        {/* The button to open modal */}
-<label htmlFor="my_modal_6" className="btn">Update</label>
+<button onClick={handleUpdate}   className="btn">Update</button>
 
 {/* Put this part before </body> tag */}
-<input type="checkbox" id="my_modal_6" className="modal-toggle" />
-<div className="modal" role="dialog">
-  <div className="modal-box">
-    <h3 className="font-bold text-lg">Hello!</h3>
-    <p className="py-4">This modal works with a hidden checkbox!</p>
-    <div className="modal-action">
-      <label htmlFor="my_modal_6" className="btn">Close!</label>
-    </div>
-  </div>
-</div>
+ 
+ 
       </td>
     </tr>
   );

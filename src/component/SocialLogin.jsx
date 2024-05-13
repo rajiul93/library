@@ -21,8 +21,7 @@ const SocialLogin = () => {
 
       
       console.log(result);
-      toast.success("success");
-      //   navigate(form, { replace: true });
+      toast.success("success"); 
     } catch (error) {
       const errorMessage = error.message;
       console.log(errorMessage);

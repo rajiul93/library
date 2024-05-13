@@ -1,3 +1,4 @@
+import axios from "axios";
 import { getAuth, updateProfile } from "firebase/auth";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
@@ -22,7 +23,7 @@ const Registration = () => {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const handleForm = data =>{
+  const handleForm =async (data) =>{
     const {  email, name, password,photo} = data;
     if (password.length < 6) {
         toast.warning("Password should be 6 charecter");
@@ -35,14 +36,16 @@ const Registration = () => {
 
 
     createWithEmailPassword(email, password)
-      .then((result) => {
+      .then(async(result) => {
         const user = result.user;
+        const email = user?.email
+        await axios.post(`${import.meta.env.VITE_API_URL}/user`,{email})
         updateProfile(auth.currentUser, {
           displayName: name,
           photoURL: photo,
         })
-          .then(() => {
-        console.log("user", user);
+          .then(() => { 
+   
 
             toast.success("Login Successfully ");
       swal.fire({
