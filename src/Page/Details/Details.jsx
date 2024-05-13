@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 
 import addBook from "../../../public/addBook.json";
@@ -9,7 +9,32 @@ import Modal from "./Modal";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AuthContext } from "../../Provider/AuthProvider";
 const Details = () => {
+  const {user} =useContext(AuthContext)
+  const email = user.email;
+
+
+  const [AllBook, setAllBook] = useState([]);
+
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const { data } = await axios(
+          `${import.meta.env.VITE_API_URL}/borrow/${user?.email}`
+        );
+        setAllBook(data); 
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getData();
+  }, [user]); 
+
+
+
+
   const [startDate, setStartDate] = useState(new Date());
   const [startDate1, setStartDate1] = useState(new Date());
   const navigate = useNavigate()
@@ -31,8 +56,14 @@ const Details = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
+
+  const check = AllBook.find(item => item.bookId === _id ) 
+ 
+
   const handleBorrowed = async (e) => {
     e.preventDefault();
+ if (check) return toast.warning("this book you already taken");
+ 
     const bookingDate = startDate1;
     const returnDate = startDate;
     const bookId = _id;
@@ -41,14 +72,14 @@ const Details = () => {
     if (dateDistance >= 0)
       return toast.warning("maybe your taken day and return date are same");
     if (quantity <= 0) return toast.warning("no more!");
-    const document = { bookingDate, returnDate, image, title, bookId };
+    const document = { bookingDate, returnDate, image, title, bookId ,email,category};
 
     const newQuantity = quantity - 1;
     try {
       const { data } = await axios.post( `${import.meta.env.VITE_API_URL}/borrow`,  document  );
       console.log(data);
       if (data.acknowledged) {
-     const update = await axios.patch(`${import.meta.env.VITE_API_URL}/borrow/${_id}`, { newQuantity, });
+      await axios.patch(`${import.meta.env.VITE_API_URL}/borrow/${_id}`, { newQuantity, });
         setTimeout(()=>{
           navigate("/borrowedBookList")
         },1000)

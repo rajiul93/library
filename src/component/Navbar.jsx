@@ -98,8 +98,9 @@ const Navbar = () => {
                 <NavLink to="/my-book">My-book</NavLink>
               </li>
               <li>
-                <NavLink to="/category">Category</NavLink>
+                <NavLink to="/borrowedBookList">Borrowed Book List</NavLink>
               </li>
+             
               
               <li>
                 <button onClick={sinOut} className="bg-error text-center mt-14">
