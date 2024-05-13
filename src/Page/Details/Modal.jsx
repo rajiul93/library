@@ -1,74 +1,73 @@
- 
-const Modal = ({image,title, category}) => {
-    return (
-        <div className="fixed inset-0 z-40 min-h-full overflow-y-auto overflow-x-hidden transition flex items-center">
-     
-        <div aria-hidden="true" className="fixed inset-0 w-full h-full bg-black/50 cursor-pointer">
+import { useState } from "react";
+
+const Modal = ({
+  isOpen,
+  onClose,
+  handleBorrowed,
+  image,
+  title,
+  category,
+  authorName,
+}) => {
+  const [input1, setInput1] = useState("");
+  const [input2, setInput2] = useState("");
+
+//   const handleConfirm = () => {
+//     // Perform actions when confirm button is clicked
+//     console.log("Confirmed");
+//     onClose();
+//   };
+
+  const handleCancel = () => {
+    // Perform actions when cancel button is clicked
+    console.log("Cancelled");
+    onClose();
+  };
+
+  return (
+    <div
+      className={`fixed inset-0 flex items-center justify-center z-50 ${
+        isOpen ? "" : "hidden"
+      }`}
+    >
+      {/* <div className="fixed inset-0 bg-gray-800 opacity-50 absolute"></div> */}
+      <div className="bg-warning rounded-lg p-8 max-w-md w-full ">
+        <h2 className="text-xl font-bold mb-4">{title}e</h2>
+        <h2 className="text-sm font-bold mb-4">Catrgory:{category}</h2>
+        <div className="md:flex gap-4">
+          <img src={image} alt="Image" className="mb-4 w-16" />
+
+          <form onSubmit={handleBorrowed}>
+            <input
+              type="date"
+              value={input1}
+              onChange={(e) => setInput1(e.target.value)}
+              className="border border-gray-300 rounded-md px-3 py-2 mb-4 w-full"
+              placeholder="Input Field 1"
+            />
+            <input
+              type="date"
+              value={input2}
+              onChange={(e) => setInput2(e.target.value)}
+              className="border border-gray-300 rounded-md px-3 py-2 mb-4 w-full"
+              placeholder="Input Field 2"
+            />
+            <button className="bg-green-500 hover:bg-green-600 text-white rounded-md px-4 py-2">
+              Confirm
+            </button>
+          </form>
         </div>
- 
-        <div className="relative w-full cursor-pointer pointer-events-none transition my-auto p-4">
-            <div
-                className="w-full py-2 bg-white cursor-default pointer-events-auto dark:bg-gray-800 relative rounded-xl mx-auto max-w-sm">
-    
-                <button   type="button" className="absolute top-2 right-2 rtl:right-auto rtl:left-2">
-                    <svg title="Close"   className="h-4 w-4 cursor-pointer text-gray-400"
-                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                        <path  
-                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                             ></path>
-                    </svg>
-                    <span className="sr-only">
-                        Close
-                    </span>
-                </button>
-    
-    
-    
-                <div className="space-y-2 p-2">
-                    <div className="p-4 space-y-2 text-center dark:text-white">
-                        <h2 className="text-xl font-bold tracking-tight" id="page-action.heading">
-                            Delete John Doe
-                        </h2>
-    
-                        <p className="text-gray-500">
-                            Are you sure you would like to do this?
-                        </p>
-                    </div>
-                </div>
-    
-                <div className="space-y-2">
-                    <div aria-hidden="true" className="border-t dark:border-gray-700 px-2"></div>
-    
-                    <div className="px-6 py-2">
-                        <div className="grid gap-2 grid-cols-[repeat(auto-fit,minmax(0,1fr))]">
-                            <button type="button"
-                                    className="inline-flex items-center justify-center py-1 gap-1 font-medium rounded-lg border transition-colors outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset dark:focus:ring-offset-0 min-h-[2.25rem] px-4 text-sm text-gray-800 bg-white border-gray-300 hover:bg-gray-50 focus:ring-primary-600 focus:text-primary-600 focus:bg-primary-50 focus:border-primary-600 dark:bg-gray-800 dark:hover:bg-gray-700 dark:border-gray-600 dark:hover:border-gray-500 dark:text-gray-200 dark:focus:text-primary-400 dark:focus:border-primary-400 dark:focus:bg-gray-800">
-                                    <span className="flex items-center gap-1">
-                                        <span className="">
-                                            Cancel
-                                        </span>
-                                    </span>
-                                </button>
-    
-                            <button type="submit"
-                                    className="inline-flex items-center justify-center py-1 gap-1 font-medium rounded-lg border transition-colors outline-none focus:ring-offset-2 focus:ring-2 focus:ring-inset dark:focus:ring-offset-0 min-h-[2.25rem] px-4 text-sm text-white shadow focus:ring-white border-transparent bg-red-600 hover:bg-red-500 focus:bg-red-700 focus:ring-offset-red-700">
-    
-                                    <span className="flex items-center gap-1">
-                                        <span className="">
-                                            Confirm
-                                        </span>
-                                    </span>
-    
-                                </button>
-                        </div>
-                    </div>
-                </div>
-    
-    
-            </div>
+        <div className="ml-20 mt-2">
+          <button
+            onClick={handleCancel}
+            className="bg-red-500 hover:bg-red-600 text-white rounded-md px-4 py-2 mr-2"
+          >
+            Cancel
+          </button>
         </div>
+      </div>
     </div>
-    );
+  );
 };
 
 export default Modal;

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import addBook from "../../../public/addBook.json";
 import PageTitle from "../../component/PageTitle";
@@ -14,9 +15,17 @@ const Details = () => {
     rating,
     category,
   } = useLoaderData();
-const handleBorrowed = (e)=>{
-  console.log("object");
-}
+ 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+  const handleBorrowed = (e) => {
+    e.preventDefault()
+    console.log("object");
+    handleCloseModal()
+  };
   return (
     <>
       <PageTitle addBook={addBook} title="Book Details" />
@@ -42,35 +51,23 @@ const handleBorrowed = (e)=>{
                 <div className="w-20 h-2 bg-green-700 my-4"></div>
                 <p className="text-xl mb-10">{shortDescription}</p>
 
-                {/* Open the modal using document.getElementById('ID').showModal() method */}
-                {/* <button
-                  className=""
-                  onClick={() =>
-                    document.getElementById("my_modal_1").showModal()
-                  }
-                >
-                  <button className="bg-green-500 text-white text-2xl font-medium px-4 py-2 rounded shadow">
-                    Borrowed Now
+                <div>
+                  <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="btn btn-success"
+                  >
+                    Open Modal
                   </button>
-                </button>
-                <dialog id="my_modal_1" className="modal">
-                  <div className="modal-box">
-                  
-                    <div className="modal-action flex-col">
-                      <Modal image={image} title={title} category={category} />
-                      <form onClick={handleBorrowed} method="dialog"> 
-                        <input type="submit" value="Confirm" />
-                        <button className="btn">Close</button>
-                      </form>
-                    </div>
-                  </div>
-                </dialog> */}
-
-
-
-
-
-                <Modal />
+                  <Modal
+                  title={title}
+                  category={category}
+                  authorName={authorName}
+                    isOpen={isModalOpen}
+                    onClose={handleCloseModal}
+                    handleBorrowed={handleBorrowed}
+                    image={image}
+                  />
+                </div>
               </div>
             </header>
           </div>
