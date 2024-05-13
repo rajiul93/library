@@ -2,11 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { CiBoxList } from "react-icons/ci";
 import { IoGrid } from "react-icons/io5";
+import AllBookRow from "../AllBookRow/AllBookRow";
 import BookRow from "./BookRow";
 const AllBookTable = () => {
   const [AllBook, setAllBook] = useState([]);
   const [filterBook, setFilterBook] = useState([]);
   const [dataLoading, setDataLoading] = useState(true);
+  const [layoutControl, setLayoutControl] = useState(false)
   useEffect(() => {
     const getData = async () => {
       try {
@@ -22,8 +24,7 @@ const AllBookTable = () => {
   }, []);
 
   const handleLayout = (e) => {
-   if (e) {
-    console.log("false")
+   if (e) { 
     const filter = AllBook.filter(item=>parseInt(item.quantity) !== 0)
     setFilterBook(filter)
    }
@@ -42,7 +43,7 @@ const AllBookTable = () => {
     );
   return (
     <>
-      <div className=" flex justify-between items-center mt-8">
+      <div className=" flex justify-between items-center my-8">
         <div className="space-x-4">
          
           <button onClick={()=>handleLayout(false)} className="text-success underline border rounded-xl p-2 cursor-pointer">
@@ -57,7 +58,8 @@ const AllBookTable = () => {
           <CiBoxList className="text-3xl cursor-pointer hover:text-warning duration-150" />
         </div>
       </div>
-      <table className="min-w-full divide-y divide-gray-200 overflow-x-auto">
+    {
+        layoutControl &&   <table className="min-w-full divide-y divide-gray-200 overflow-x-auto">
         <thead className="bg-base-100">
           <tr>
             <th
@@ -93,12 +95,22 @@ const AllBookTable = () => {
             </th>
           </tr>
         </thead>
-        <tbody className="bg-base-100 divide-y divide-gray-200">
-          {filterBook.map((book) => (
-            <BookRow key={book._id} book={book} />
-          ))}
-        </tbody>
+      <tbody className="bg-base-100 divide-y divide-gray-200">
+        {filterBook.map((book) => (
+          <BookRow key={book._id} book={book} />
+        ))}
+      </tbody>
+     
+
       </table>
+    }
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-6">
+  {
+        !layoutControl &&  filterBook.map((book) => (
+            <AllBookRow key={book._id}  book={book} />
+          ))
+      }
+  </div>
     </>
   );
 };
