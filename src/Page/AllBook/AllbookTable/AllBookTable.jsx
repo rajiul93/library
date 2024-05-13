@@ -54,8 +54,8 @@ const AllBookTable = () => {
           </span> 
         </div>
         <div className="flex gap-3">
-          <IoGrid className="text-3xl cursor-pointer hover:text-warning duration-150" />
-          <CiBoxList className="text-3xl cursor-pointer hover:text-warning duration-150" />
+          <IoGrid  onClick={()=>setLayoutControl(false)} className="text-3xl cursor-pointer hover:text-warning duration-150" />
+          <CiBoxList onClick={()=>setLayoutControl(true)}  className="text-3xl cursor-pointer hover:text-warning duration-150" />
         </div>
       </div>
     {
