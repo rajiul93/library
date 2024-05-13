@@ -12,7 +12,7 @@ const BookRow = ({ book }) => {
             <img className="h-10 w-10 rounded-xl" src={image} alt="" />
           </div>
           <div className="ml-4">
-            <div className="text-sm font-medium text-gray-900">
+            <div className="text-sm font-medium  ">
               Author:{authorName}
             </div>
             <div className="text-sm text-gray-500">Category:{category}</div>
@@ -21,7 +21,7 @@ const BookRow = ({ book }) => {
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
         <Link to={`/details/${_id}`}>
-        <div className="text-sm text-gray-900 hover:underline">
+        <div className="text-sm   hover:underline">
         {title}
         </div>
         </Link>

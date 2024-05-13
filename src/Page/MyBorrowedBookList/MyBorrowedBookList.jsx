@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { Link } from "react-router-dom";
 import addBook from "../../../public/addBook.json";
 import { AuthContext } from "../../Provider/AuthProvider";
@@ -11,40 +12,52 @@ const MyBorrowedBookList = () => {
   const [AllBook, setAllBook] = useState([]);
   const [dataLoading, setDataLoading] = useState(true);
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const { data } = await axios(
-          `${import.meta.env.VITE_API_URL}/borrow/${user?.email}`
-        );
-        setAllBook(data);
-        setDataLoading(false);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     getData();
   }, [user]);
 
-
-
-
-  const handleReturn = async (returnId ,deleteID) => {
+  const getData = async () => {
     try {
-      const { data } = await axios.delete(
-        `${import.meta.env.VITE_API_URL}/borrow-return/${deleteID}`
+      const { data } = await axios(
+        `${import.meta.env.VITE_API_URL}/borrow/${user?.email}`
       );
-      console.log(data);
+      setAllBook(data);
+      setDataLoading(false);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const handleReturn = async (returnId, deleteID) => {
+    try {
+      const { data } = await axios.delete(
+        `${import.meta.env.VITE_API_URL}/borrow-return/${deleteID}`
+      );
 
+      if (data.deletedCount > 0) {
+        // this is main book api 
+        const previous = await axios(
+          `${import.meta.env.VITE_API_URL}/book/${returnId}`
+        );
+    
+        getData();
+        if (previous.statusText === "OK") { 
+          const newQuantity = parseInt(previous.data.quantity) + 1;
+    
 
+          // this is main book quantity return id
+          await axios.patch(
+            `${import.meta.env.VITE_API_URL}/borrow/${returnId}`,
+            { newQuantity }
+          );
 
-
-
-
+         
+          toast.success("Successfully return");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   if (dataLoading)
     return (
@@ -64,6 +77,7 @@ const MyBorrowedBookList = () => {
     );
   return (
     <div>
+      <Toaster />
       <PageTitle addBook={addBook} title="My Borrowed Book List" />
 
       {AllBook?.map((item) => (

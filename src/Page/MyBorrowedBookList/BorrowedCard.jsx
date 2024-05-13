@@ -36,7 +36,7 @@ const BorrowedCard = ({item,handleReturn}) => {
              <Link to={`/details/${bookId}`} className="text-warning underline" >
                 Details
                 </Link>
-                <p onClick={()=>handleReturn(bookId,_id )} className="text-success underline">Return</p>
+                <p onClick={()=>handleReturn(bookId,_id )} className="text-success cursor-pointer underline">Return</p>
              </div>
             </div>
         </div>
