@@ -5,12 +5,14 @@ import { IoGrid } from "react-icons/io5";
 import BookRow from "./BookRow";
 const AllBookTable = () => {
   const [AllBook, setAllBook] = useState([]);
+  const [filterBook, setFilterBook] = useState([]);
   const [dataLoading, setDataLoading] = useState(true);
   useEffect(() => {
     const getData = async () => {
       try {
         const { data } = await axios(`${import.meta.env.VITE_API_URL}/book`);
         setAllBook(data);
+        setFilterBook(data);
         setDataLoading(false);
       } catch (error) {
         console.log(error);
@@ -19,20 +21,42 @@ const AllBookTable = () => {
     getData();
   }, []);
 
+  const handleLayout = (e) => {
+   if (e) {
+    console.log("false")
+    const filter = AllBook.filter(item=>parseInt(item.quantity) !== 0)
+    setFilterBook(filter)
+   }
+   if (!e) {
+    setFilterBook(AllBook)
 
+   }
+  };
 
-  
-  if (dataLoading)  return <div className="h-96 flex justify-center items-center">  <progress className="progress w-56"></progress>  </div> 
+  if (dataLoading)
+    return (
+      <div className="h-96 flex justify-center items-center">
+        {" "}
+        <progress className="progress w-56"></progress>{" "}
+      </div>
+    );
   return (
     <>
-
-    <div className=" flex justify-between items-center mt-8">
-        <div className="space-x-4"> <span className="text-success underline border rounded-xl p-2 cursor-pointer">All BooK</span><span className="text-success underline border rounded-xl p-2 cursor-pointer">Available</span> </div>
-        <div className="flex gap-3">
-        <IoGrid  className="text-3xl cursor-pointer hover:text-warning duration-150"/>
-        <CiBoxList className="text-3xl cursor-pointer hover:text-warning duration-150" />
+      <div className=" flex justify-between items-center mt-8">
+        <div className="space-x-4">
+         
+          <button onClick={()=>handleLayout(false)} className="text-success underline border rounded-xl p-2 cursor-pointer">
+            All BooK
+          </button>
+          <span onClick={()=>handleLayout(true)} className="text-success underline border rounded-xl p-2 cursor-pointer">
+            Available
+          </span> 
         </div>
-    </div>
+        <div className="flex gap-3">
+          <IoGrid className="text-3xl cursor-pointer hover:text-warning duration-150" />
+          <CiBoxList className="text-3xl cursor-pointer hover:text-warning duration-150" />
+        </div>
+      </div>
       <table className="min-w-full divide-y divide-gray-200 overflow-x-auto">
         <thead className="bg-base-100">
           <tr>
@@ -70,7 +94,7 @@ const AllBookTable = () => {
           </tr>
         </thead>
         <tbody className="bg-base-100 divide-y divide-gray-200">
-          {AllBook.map((book) => (
+          {filterBook.map((book) => (
             <BookRow key={book._id} book={book} />
           ))}
         </tbody>

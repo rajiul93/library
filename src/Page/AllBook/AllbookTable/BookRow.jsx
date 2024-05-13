@@ -6,7 +6,7 @@ const BookRow = ({ book }) => {
  
   return (
     <tr>
-      <td className="px-6 py-4 whitespace-nowrap">
+      <td className="px-6 py-4 whitespace-nowrap overflow-auto">
         <div className="flex items-center">
           <div className="flex-shrink-0 h-10 w-10">
             <img className="h-10 w-10 rounded-xl" src={image} alt="" />
