@@ -1,10 +1,15 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { CiBoxList } from "react-icons/ci";
 import { IoGrid } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
+ 
 import AllBookRow from "../AllBookRow/AllBookRow";
 import BookRow from "./BookRow";
 const AllBookTable = () => {
+  const navigate = useNavigate()
+
   const [AllBook, setAllBook] = useState([]);
   const [filterBook, setFilterBook] = useState([]);
   const [dataLoading, setDataLoading] = useState(true);
@@ -34,6 +39,18 @@ const AllBookTable = () => {
    }
   };
 
+  const handleUpdate =async (_id, user)=>{
+    const email = user.email;
+    const { data } = await axios(
+      `${import.meta.env.VITE_API_URL}/user/${email}`
+    );
+
+    if (data.role !== "adimn") {
+      return toast("this button only for admin");
+    }
+    navigate(`/update/${_id}`);
+  }
+  
   if (dataLoading)
     return (
       <div className="h-96 flex justify-center items-center">
@@ -43,6 +60,7 @@ const AllBookTable = () => {
     );
   return (
     <>
+    <Toaster />
       <div className=" flex justify-between items-center my-8">
         <div className="space-x-4">
          
@@ -98,7 +116,7 @@ const AllBookTable = () => {
         </thead>
       <tbody className="bg-base-100 divide-y divide-gray-200">
         {filterBook.map((book) => (
-          <BookRow key={book._id} book={book} />
+          <BookRow key={book._id} book={book} handleUpdate={handleUpdate}/>
         ))}
       </tbody>
      

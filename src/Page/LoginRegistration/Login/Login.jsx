@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import swal from "sweetalert";
+import Swal from 'sweetalert2';
 import loginAnimation from "../../../../public/loginAnimation.json";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import SocialLogin from "../../../component/SocialLogin";
@@ -20,19 +20,21 @@ const Login = () => {
  
 
   const handleLogin = (data) => {
-    const { email, password } = data;
+    const { email, password } = data; 
     loginWithEmail(email, password)
       .then(() => {
-        swal.fire({
-          title: 'success',
-          text: 'Welcome Art Gallery',
-          icon: 'success',
-          confirmButtonText: 'OK'
-        })
+        Swal.fire({
+          position: "top-center",
+          icon: "success",
+          title: "Your work has been saved",
+          showConfirmButton: false,
+          timer: 1500
+        });
       navigate(location?.state ? location.state : "/");
 
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e.message)
         toast.warn("Please check your password password");
       });
   };

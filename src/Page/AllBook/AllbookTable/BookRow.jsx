@@ -1,30 +1,22 @@
-import axios from "axios";
 import { useContext } from "react";
-import toast, { Toaster } from "react-hot-toast";
 import Rating from "react-rating";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
 
-const BookRow = ({ book }) => {
+const BookRow = ({ book,handleUpdate }) => {
   const { user } = useContext(AuthContext);
 
   const { authorName, category, image, rating, quantity,title,_id } = book;
-  const navigate = useNavigate()
-  const handleUpdate =async ()=>{
-    const email = user.email;
-    const { data } = await axios(
-      `${import.meta.env.VITE_API_URL}/user/${email}`
-    );
 
-    if (data.role !== "adimn") {
-      return toast.error("this button only for admin");
-    }
-    navigate(`/update/${_id}`);
-  }
+
+
+
   return (
     <tr>
-      <Toaster />
+ 
+ 
 
+ 
       <td className="px-6 py-4 whitespace-nowrap sm:max-w-xs md:max-w-md lg:max-w-6xl overflow-auto">
         <div className="flex items-center">
           <div className="flex-shrink-0 h-10 w-10">
@@ -81,7 +73,7 @@ const BookRow = ({ book }) => {
 
       <td className="px-6 py-4 whitespace-nowrap  text-sm font-medium">
        {/* The button to open modal */}
-<button onClick={handleUpdate}   className="btn">Update</button>
+<button onClick={()=>handleUpdate(_id, user)}   className="btn">Update</button>
 
 {/* Put this part before </body> tag */}
  
