@@ -56,12 +56,14 @@ const AllBookRow = ({ book }) => {
             </div>
           }
         />
+          <div className="badge badge-outline">Author Name: {authorName}</div>
+
         <p>If a dog chews shoes whose shoes does he choose?</p>
         <div className="card-actions justify-end">
           <div className="badge badge-outline">{category}</div>
-          <div className="badge badge-outline">{authorName}</div>
+          <div className="badge badge-outline cursor-pointer">Details</div>
 
-          <div onClick={handleUpdate} className="badge badge-outline">
+          <div onClick={handleUpdate} className="badge cursor-pointer badge-outline">
             Update
           </div>
         </div>

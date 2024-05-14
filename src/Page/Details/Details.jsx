@@ -96,7 +96,7 @@ const Details = () => {
       <PageTitle addBook={addBook} title="Book Details" />
       <ToastContainer />
       <hr className="mt-5" />
-      <div className="flex  my-14 items-center">
+      <div className="flex flex-col-reverse md:flex-row my-14 items-center">
         <div className="w-full sm:w-8/12 mb-10">
           <div className="container mx-auto h-full sm:p-10">
             <nav className="flex px-4 justify-between items-center">

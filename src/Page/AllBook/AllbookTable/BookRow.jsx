@@ -2,7 +2,7 @@ import axios from "axios";
 import { useContext } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Rating from "react-rating";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../Provider/AuthProvider";
 
 const BookRow = ({ book }) => {
@@ -25,7 +25,7 @@ const BookRow = ({ book }) => {
     <tr>
       <Toaster />
 
-      <td className="px-6 py-4 whitespace-nowrap overflow-auto">
+      <td className="px-6 py-4 whitespace-nowrap sm:max-w-xs md:max-w-md lg:max-w-6xl overflow-auto">
         <div className="flex items-center">
           <div className="flex-shrink-0 h-10 w-10">
             <img className="h-10 w-10 rounded-xl" src={image} alt="" />
@@ -39,9 +39,11 @@ const BookRow = ({ book }) => {
         </div>
       </td>
       <td className="px-6 py-4 whitespace-nowrap">
+        <div   className="text-sm    hover:underline">
+        <Link to={`/details/${_id}`}>
         
-        <div onClick={handleUpdate} className="text-sm   hover:underline">
         {title}
+        </Link>
         </div>
         
         <div className="text-sm text-gray-500">Optimization</div>

@@ -58,8 +58,9 @@ const AllBookTable = () => {
           <CiBoxList onClick={()=>setLayoutControl(true)}  className="text-3xl cursor-pointer hover:text-warning duration-150" />
         </div>
       </div>
-    {
-        layoutControl &&   <table className="min-w-full divide-y divide-gray-200 overflow-x-auto">
+<div className="overflow-x-auto">
+{
+        layoutControl &&   <table className="min-w-full divide-y sm:max-w-xs md:max-w-md lg:max-w-6xl divide-gray-200 overflow-x-auto">
         <thead className="bg-base-100">
           <tr>
             <th
@@ -104,6 +105,7 @@ const AllBookTable = () => {
 
       </table>
     }
+</div>
   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-6">
   {
         !layoutControl &&  filterBook.map((book) => (
