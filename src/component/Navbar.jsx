@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import Theme from "./Theme";
 
@@ -51,7 +51,7 @@ const Navbar = () => {
               {navItem}
             </ul>
           </div>
-          <a className="  text-2xl text-base-100 font-bold">Book Travel</a>
+          <Link to="/" className="  text-2xl text-base-100 flex gap-3 font-bold"><img src="/src/assets/fav.jpg" className="w-10" alt="" /> LibraryAn</Link >
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">{navItem}</ul>

@@ -1,7 +1,6 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-
 const Modal = ({
   isOpen,
   onClose,
@@ -15,13 +14,8 @@ const Modal = ({
   startDate1,
   setStartDate1,
 }) => {
-   
-
- 
-
   const handleCancel = () => {
     // Perform actions when cancel button is clicked
-    console.log("Cancelled");
     onClose();
   };
 
@@ -39,15 +33,23 @@ const Modal = ({
           <img src={image} alt="Image" className="mb-4 w-32" />
 
           <form onSubmit={handleBorrowed}>
-          
-           <div>
-             Today: <br />
-           <DatePicker disabled selected={startDate1} onChange={(date) => setStartDate1(date)}  className="border border-gray-300 rounded-md px-3 py-2 mb-4 w-full"/>\
-           <br />
-           Return Date: <br />
-
-            <DatePicker selected={startDate} onChange={(date) => setStartDate(date)}  className="border border-gray-300 rounded-md px-3 py-2 mb-4 w-full"/>
-           </div>
+            <div>
+              Today: <br />
+              <DatePicker
+                disabled
+                selected={startDate1}
+                onChange={(date) => setStartDate1(date)}
+                className="border border-gray-300 rounded-md px-3 py-2 mb-4 w-full"
+              />
+              \
+              <br />
+              Return Date: <br />
+              <DatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+                className="border border-gray-300 rounded-md px-3 py-2 mb-4 w-full"
+              />
+            </div>
             <button className="bg-green-500 hover:bg-green-600 text-white rounded-md px-4 py-2">
               Confirm
             </button>

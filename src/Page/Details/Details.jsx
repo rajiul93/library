@@ -122,7 +122,7 @@ const Details = () => {
                     onClick={() => setIsModalOpen(true)}
                     className="btn btn-success"
                   >
-                    Open Modal
+                   Borrowed Now
                   </button>
                   <Modal
                     title={title}
