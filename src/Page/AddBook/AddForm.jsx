@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useContext } from "react";
 import "react-datepicker/dist/react-datepicker.css";
 import { useForm } from "react-hook-form";
@@ -6,8 +5,10 @@ import toast, { Toaster } from "react-hot-toast";
 import addBook from "../../../public/addBook.json";
 import { AuthContext } from "../../Provider/AuthProvider";
 import PageTitle from "../../component/PageTitle";
+import useAxiosSecure from "../../hook/useAxiosSecure";
 const AddForm = () => {
   const { user } = useContext(AuthContext);
+  const axiosSecure = useAxiosSecure();
 
   const {
     register,
@@ -18,16 +19,13 @@ const AddForm = () => {
   const addNewBook = async (content) => {
     if (content.rating >= 6) return toast.error("Max rating are 5");
     if (content.quantity <= 5) return toast.error("Min quantity are 5");
-content.rating = parseInt(content.rating)
+    content.rating = parseInt(content.rating);
     const email = user?.email;
     const authorPhoto = user?.photoURL;
     const authorName = user?.displayName;
-    const document = { ...content, email, authorPhoto,authorName };
-    try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL}/book`,
-        document
-      );
+    const document = { ...content, email, authorPhoto, authorName };
+    try { 
+      const { data } = await axiosSecure.post(`/book`, document);
       if (data.acknowledged) {
         toast.success("Your post successfully done");
       }
@@ -160,7 +158,7 @@ content.rating = parseInt(content.rating)
                     <option value="History">History</option>
                     <option value="Drama">Drama</option>
                     <option value="Romance">Romance</option>
-                    <option value="Art & Photography">Art & Photography</option> 
+                    <option value="Art & Photography">Art & Photography</option>
                   </select>
                   <br />
                   {errors.category && (
@@ -205,8 +203,8 @@ content.rating = parseInt(content.rating)
                 ></textarea>
                 <br />
                 {errors.about && (
-                    <p className="text-error">should be fill it !</p>
-                  )}
+                  <p className="text-error">should be fill it !</p>
+                )}
               </div>
               <div className="w-full rounded-lg bg-warning mt-4 text-white text-lg font-semibold">
                 <button type="submit" className="w-full p-4">

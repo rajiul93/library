@@ -32,8 +32,17 @@ const MyBook = () => {
       </div>
     );
 
+
+
+    
+
+
+
+
   return (
-    <table className="min-w-full divide-y divide-gray-200 overflow-x-auto">
+  <div className="overflow-x-auto">
+
+<table className="min-w-full divide-y divide-gray-200 ">
       <thead className="bg-base-100">
         <tr>
           <th
@@ -69,12 +78,13 @@ const MyBook = () => {
           </th>
         </tr>
       </thead>
-      <tbody className="bg-base-100 divide-y divide-gray-200">
+      <tbody className="bg-base-100 divide-y divide-gray-200 ">
         {AllBook.map((book) => (
           <MyBookRow key={book._id} book={book} getData={getData}/>
         ))}
       </tbody>
     </table>
+  </div>
   );
 };
 

@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import swal from "sweetalert";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import SocialLogin from "../../../component/SocialLogin";
 import app from "../../../firebase/firebase.config";
@@ -37,9 +36,19 @@ const Registration = () => {
 
     createWithEmailPassword(email, password)
       .then(async(result) => {
-        const user = result.user;
-        const email = user?.email
+        const user = result?.user?.email
         await axios.post(`${import.meta.env.VITE_API_URL}/user`,{email})
+
+        
+        try {
+          
+          const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/jwt`, {email:user },{withCredentials:true})
+          console.log(data)
+        
+        } catch (error) {
+          // console.log(error)
+        }
+
         updateProfile(auth.currentUser, {
           displayName: name,
           photoURL: photo,
@@ -48,12 +57,12 @@ const Registration = () => {
    
 
             toast.success("Login Successfully ");
-      swal.fire({
-        title: 'success',
-          text: 'Welcome Voyage Vista',
-          icon: 'success',
-          confirmButtonText: 'OK'
-      })
+      // swal.fire({
+      //   title: 'success',
+      //     text: 'Welcome Voyage Vista',
+      //     icon: 'success',
+      //     confirmButtonText: 'OK'
+      // })
       navigate(location?.state ? location.state : "/");
           })
           .catch((e) => console.log(e.message));

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { PropTypes } from "prop-types";
 import { useContext } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import Rating from "react-rating";
@@ -61,7 +62,9 @@ const AllBookRow = ({ book }) => {
         <p>If a dog chews shoes whose shoes does he choose?</p>
         <div className="card-actions justify-end">
           <div className="badge badge-outline">{category}</div>
-          <div className="badge badge-outline cursor-pointer">Details</div>
+        <Link to={`/details/${_id}`}>
+        <div className="badge badge-outline cursor-pointer">Details</div>
+        </Link>
 
           <div onClick={handleUpdate} className="badge cursor-pointer badge-outline">
             Update
@@ -73,3 +76,6 @@ const AllBookRow = ({ book }) => {
 };
 
 export default AllBookRow;
+AllBookRow.propTypes = { 
+  book: PropTypes.obj,
+}

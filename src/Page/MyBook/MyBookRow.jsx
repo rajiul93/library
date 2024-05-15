@@ -1,10 +1,10 @@
 import axios from "axios";
 import { PropTypes } from "prop-types";
-import toast, { Toaster } from "react-hot-toast";
 import { FaEdit } from "react-icons/fa";
 import { FaDeleteLeft } from "react-icons/fa6";
 import Rating from "react-rating";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const MyBookRow = ({ book, getData }) => {
   const { authorName, category, image, rating, quantity, title, _id } = book;
@@ -15,7 +15,10 @@ const MyBookRow = ({ book, getData }) => {
         `${import.meta.env.VITE_API_URL}/book/${id}`
       ); 
       if (data.deletedCount>0) {
-        toast.success("delete success")
+        Swal.fire({
+          title: "Delete success ", 
+          icon: "success"
+        });
       }
       getData();
     } catch (error) {
@@ -25,7 +28,7 @@ const MyBookRow = ({ book, getData }) => {
 
   return (
     <tr>
-          <Toaster />
+          
 
       <td className="px-6 py-4 whitespace-nowrap">
         <div className="flex items-center">

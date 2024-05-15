@@ -1,14 +1,19 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { CiBoxList } from "react-icons/ci";
 import { IoGrid } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
  
+import { AuthContext } from "../../../Provider/AuthProvider";
+import useAxiosSecure from "../../../hook/useAxiosSecure";
 import AllBookRow from "../AllBookRow/AllBookRow";
 import BookRow from "./BookRow";
 const AllBookTable = () => {
+  const axiosSecure = useAxiosSecure();
+
   const navigate = useNavigate()
+  const {user} = useContext(AuthContext)
 
   const [AllBook, setAllBook] = useState([]);
   const [filterBook, setFilterBook] = useState([]);
@@ -17,16 +22,16 @@ const AllBookTable = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data } = await axios(`${import.meta.env.VITE_API_URL}/book`);
+        const { data } = await axiosSecure(`book?email=${user?.email}`);
         setAllBook(data);
         setFilterBook(data);
         setDataLoading(false);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     getData();
-  }, []);
+  }, [axiosSecure, user?.email]);
 
   const handleLayout = (e) => {
    if (e) { 

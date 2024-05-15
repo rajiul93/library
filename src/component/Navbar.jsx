@@ -102,11 +102,11 @@ const Navbar = () => {
               </li>
              
               
-              <li>
+             {user &&  <li>
                 <button onClick={sinOut} className="bg-error text-center mt-14">
                   Log Out
                 </button>
-              </li>
+              </li>}
             </ul>
           </div>
         </div>
