@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import Theme from "./Theme";
+import { FaUserCircle } from "react-icons/fa";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -10,28 +11,45 @@ const Navbar = () => {
     logOut();
     navigate("/");
   };
+  const navLinkClass = ({ isActive }) =>
+    [
+      "inline-flex items-center px-3 py-2 text-sm font-medium",
+      "bg-transparent rounded-none",
+      "hover:text-[#ffbe0e] hover:bg-transparent",
+      "transition-colors",
+      isActive
+        ? "text-[#ffbe0e] border-b-2 border-[#ffbe0e]"
+        : "text-base-content/80 border-b-2 border-transparent",
+    ].join(" ");
+
   const navItem = (
     <>
       <li>
-        <NavLink to="/">Home</NavLink>
+        <NavLink to="/" className={navLinkClass}>
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/all-book">All Book</NavLink>
+        <NavLink to="/all-book" className={navLinkClass}>
+          All Book
+        </NavLink>
       </li>
       <li>
-        <NavLink to="/add-book">Add Book</NavLink>
+        <NavLink to="/add-book" className={navLinkClass}>
+          Add Book
+        </NavLink>
       </li>
     </>
   );
   return (
-    <div className="bg-warning">
-      <div className="navbar max-w-6xl mx-auto ">
+    <div className="sticky top-0 z-50 bg-base-100/90 backdrop-blur border-b border-base-200">
+      <div className="navbar max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-8 w-8"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -51,10 +69,13 @@ const Navbar = () => {
               {navItem}
             </ul>
           </div>
-          <Link to="/" className="  text-2xl text-base-100 flex gap-3 font-bold"><img src="/src/assets/fav.jpg" className="w-10" alt="" /> LibraryAn</Link >
+          <Link to="/" className="text-2xl flex gap-3 font-bold items-center">
+            <img src="/src/assets/fav.jpg" className="w-10 rounded" alt="Library logo" />
+            
+          </Link>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">{navItem}</ul>
+          <ul className="flex items-center gap-2 px-1">{navItem}</ul>
         </div>
         <div className="navbar-end">
           <Theme />
@@ -63,13 +84,13 @@ const Navbar = () => {
             <div tabIndex={0} role="button" className=" ">
               <div className="avatar ms-5">
                 <div className="w-12 rounded-full">
-                  <img
-                    src={
-                      user?.photoURL
-                        ? `${user.photoURL}`
-                        : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-                    }
-                  />
+                  {user?.photoURL ? (
+                    <img src={user.photoURL} alt="User avatar" />
+                  ) : (
+                    <div className="w-12 h-12 grid place-items-center bg-base-200 text-base-content">
+                      <FaUserCircle className="w-9 h-9 opacity-70" />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

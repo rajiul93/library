@@ -1,4 +1,5 @@
 import Lottie from "lottie-react";
+import PropTypes from "prop-types";
 
  
 
@@ -14,6 +15,11 @@ const PageTitle = ({addBook,title}) => {
             </div>
         </div>
     );
+};
+
+PageTitle.propTypes = {
+  addBook: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
+  title: PropTypes.string.isRequired,
 };
 
 export default PageTitle;

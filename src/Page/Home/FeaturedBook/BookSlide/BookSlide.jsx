@@ -51,49 +51,70 @@ const BookSlide = () => {
         freeMode={true}
         navigation={true}
         modules={[Navigation]}
-        className="mySwiper mb-14 mt-5 grid grid-cols-1  items-center"
+        className="mySwiper mb-10 mt-4"
       >
         {bookData.map((item) => {
           return (
             <SwiperSlide key={item._id}>
-              <div className="flex flex-col border border-warning p-4   w-full h-full cursor-pointer  ">
-                <div className="w-full h-full overflow-hidden">
-                  <img
-                    className="max-h-64 h-full object-cover w-full hover:scale-125 duration-200"
-                    src={item.image}
-                    alt=""
-                  />
-                </div>
-                <h1 className="font-bold text-start my-3">{item.title}</h1>
-                <div className="flex justify-between items-center">
-                  <Rating
-                    initialRating={parseInt(item.rating)}
-                    emptySymbol={
-                      <div className="rating rating-xs">
-                        <input
-                          type="radio"
-                          name="rating-4"
-                          className="mask mask-star-2 bg-gray-500"
+              <div className="group h-full w-full">
+                <div className="h-full rounded-2xl border border-base-200 bg-base-100 shadow-sm transition hover:shadow-md">
+                  <div className="relative overflow-hidden rounded-t-2xl">
+                    <img
+                      className="h-60 sm:h-64 w-full object-cover transition duration-300 group-hover:scale-105"
+                      src={item.image}
+                      alt={item.title}
+                      loading="lazy"
+                    />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-base-100/10 to-transparent opacity-0 group-hover:opacity-100 transition" />
+                  </div>
+                  <div className="p-4 sm:p-5">
+                    <h1 className="font-semibold text-base-content leading-snug line-clamp-2 min-h-[2.5rem]">
+                      {item.title}
+                    </h1>
+
+                    <div className="mt-3 flex items-center justify-between gap-3">
+                      <div className="flex items-center gap-2">
+                        <Rating
+                          initialRating={Number(item.rating) || 0}
+                          emptySymbol={
+                            <div className="rating rating-xs">
+                              <input
+                                type="radio"
+                                name={`rating-${item._id}`}
+                                className="mask mask-star-2 bg-base-300"
+                                readOnly
+                              />
+                            </div>
+                          }
+                          fullSymbol={
+                            <div className="rating rating-xs">
+                              <input
+                                type="radio"
+                                name={`rating-${item._id}`}
+                                className="mask mask-star-2 bg-[#ffbe0e]"
+                                readOnly
+                              />
+                            </div>
+                          }
                         />
+                        <span className="text-xs text-base-content/60">
+                          {Number(item.rating) || 0}
+                        </span>
                       </div>
-                    }
-                    fullSymbol={
-                      <div className="rating rating-xs">
-                        <input
-                          type="radio"
-                          name="rating-4"
-                          className="mask  mask-star-2 bg-green-500"
-                        />
+
+                      <div
+                        className="tooltip tooltip-top"
+                        data-tip="Details"
+                      >
+                        <Link
+                          to={`/details/${item._id}`}
+                          className="btn btn-sm btn-circle bg-base-200 border-none hover:bg-base-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#ffbe0e]"
+                          aria-label={`View details for ${item.title}`}
+                        >
+                          <FaLongArrowAltRight className="text-lg" />
+                        </Link>
                       </div>
-                    }
-                  />
-                  <div
-                    className="tooltip hover:tooltip-open tooltip-top tooltip-warning"
-                    data-tip="Details"
-                  >
-                    <Link to={`/details/${item._id}`}>
-                      <FaLongArrowAltRight className="hover:text-warning duration-100 text-xl " />
-                    </Link>
+                    </div>
                   </div>
                 </div>
               </div>

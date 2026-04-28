@@ -5,13 +5,15 @@ import Navbar from "../component/Navbar";
 
 const Root = () => {
     return (
-       <div className="secondary-content">
-            <Navbar />
-         <div className="max-w-6xl mx-auto px-2 min-h-[calc(100vh-152px)]">
+      <div className="min-h-screen bg-base-100 text-base-content flex flex-col">
+        <Navbar />
+        <main className="flex-1 w-full">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
             <Outlet />
-        </div>
-            <Footer />
-       </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
     );
 };
 
