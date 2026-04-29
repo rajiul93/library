@@ -19,10 +19,9 @@ const Home = () => {
         <Support />
       </section>
 
-      {/* Featured */}
-      <section className="rounded-box bg-base-100 border border-base-200 shadow-sm p-4 sm:p-6">
+      {/* Featured */} 
         <FeaturedBook />
-      </section>
+  
 
       {/* Productivity */}
       <section className="rounded-box bg-base-100 border border-base-200 shadow-sm p-4 sm:p-6">

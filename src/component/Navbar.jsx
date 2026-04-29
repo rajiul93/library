@@ -70,7 +70,7 @@ const Navbar = () => {
             </ul>
           </div>
           <Link to="/" className="text-2xl flex gap-3 font-bold items-center">
-            <img src="/src/assets/fav.jpg" className="w-10 rounded" alt="Library logo" />
+            <img src="/logoo.png" className="w-28 rounded" alt="Library logo" />
             
           </Link>
         </div>
