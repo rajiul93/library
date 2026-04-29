@@ -8,7 +8,6 @@ A **React**-based library management web application. Users can add books, updat
   <img src="./public/logoo.png" alt="Library app logo / preview" width="420" />
 </p>
 
-> **Note:** The image above uses an asset from the project `public/` folder. You can add a full homepage or all-books screenshot in the same folder and update the `src` here if you prefer.
 
 ---
 
